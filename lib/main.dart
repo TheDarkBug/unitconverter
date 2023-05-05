@@ -19,10 +19,14 @@ class _AppState extends State<App> {
     });
   }
 
+  ThemeMode getTheme() {
+    return themeMode;
+  }
+
   @override
   void initState() {
     super.initState();
-    settings = Settings(themeSetter: setTheme, themeMode: themeMode);
+    settings = Settings(themeSetter: setTheme, getTheme: getTheme);
   }
 
   @override

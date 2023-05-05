@@ -28,9 +28,9 @@ class _SettingCardState extends State<SettingCard> {
 }
 
 class Settings {
-  Settings({required this.themeSetter, required this.themeMode});
+  Settings({required this.themeSetter, required this.getTheme});
   final void Function(ThemeMode mode) themeSetter;
-  ThemeMode themeMode;
+  final ThemeMode Function() getTheme;
 }
 
 class SettingsPage extends StatefulWidget {
@@ -42,20 +42,16 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool themeSwitch = false;
-  bool systemTheme = true;
+  bool systemTheme = false;
   @override
   void initState() {
     super.initState();
-    themeSwitch = widget.settings.themeMode == ThemeMode.dark;
-    systemTheme = widget.settings.themeMode == ThemeMode.system;
+    themeSwitch = widget.settings.getTheme() == ThemeMode.dark;
+    systemTheme = widget.settings.getTheme() == ThemeMode.system;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (systemTheme) {
-      themeSwitch =
-          MediaQuery.of(context).platformBrightness == Brightness.dark;
-    }
     return ListView.builder(
       itemCount: 2,
       itemBuilder: (context, index) {
@@ -81,8 +77,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 onChanged: (value) {
                   setState(() {
                     systemTheme = value;
-                    widget.settings
-                        .themeSetter(value ? ThemeMode.system : ThemeMode.dark);
+                    widget.settings.themeSetter(value
+                        ? ThemeMode.system
+                        : themeSwitch
+                            ? ThemeMode.dark
+                            : ThemeMode.light);
                   });
                 }),
           ),
