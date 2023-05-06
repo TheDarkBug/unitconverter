@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'unit.dart';
 
-class QuickConvertPage extends StatefulWidget {
-  const QuickConvertPage({super.key});
+class CurrenciesPage extends StatefulWidget {
+  const CurrenciesPage({super.key});
   @override
-  State<QuickConvertPage> createState() => _QuickConvertPageState();
+  State<CurrenciesPage> createState() => _CurrenciesPageState();
 }
 
-class _QuickConvertPageState extends State<QuickConvertPage> {
+class _CurrenciesPageState extends State<CurrenciesPage> {
   double value = 0.0;
   bool isMetric = true;
   final TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    getCurrency('EUR').then((value) {
+      print(round(value, 2));
+    });
+  }
+
+  Future<double> getCurrency(String name) async {
+    final response = await http.get(Uri.parse(
+        'https://api.binance.com/api/v3/ticker/price?symbol=${name}USDT'));
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body);
+      final price = jsonBody['price'];
+      return double.parse(price);
+    } else {
+      throw Exception('Failed to load currency price');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +82,18 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: getUnits(value, isMetric).length,
-            itemBuilder: (BuildContext context, int index) =>
-                Center(child: getUnits(value, isMetric)[index]),
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index) => Center(
+              child: Unit(
+                iSname: 'Dollar',
+                mSname: 'Euro',
+                iSsymbol: '\$',
+                mSsymbol: '€',
+                value: value,
+                converted: isMetric ? value / 4.54609 : value * 4.54609,
+                isMetric: isMetric,
+              ),
+            ),
           ),
         ),
       ],

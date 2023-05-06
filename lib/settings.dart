@@ -52,41 +52,44 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 2,
-      itemBuilder: (context, index) {
-        return [
-          SettingCard(
-            name: 'Dark Mode',
-            setter: Switch(
-                value: themeSwitch,
-                onChanged: systemTheme
-                    ? null
-                    : (value) {
-                        setState(() {
-                          themeSwitch = value;
-                          widget.settings.themeSetter(
-                              value ? ThemeMode.dark : ThemeMode.light);
-                        });
-                      }),
-          ),
-          SettingCard(
-            name: 'Use System Theme',
-            setter: Switch(
-                value: systemTheme,
-                onChanged: (value) {
-                  setState(() {
-                    systemTheme = value;
-                    widget.settings.themeSetter(value
-                        ? ThemeMode.system
-                        : themeSwitch
-                            ? ThemeMode.dark
-                            : ThemeMode.light);
-                  });
-                }),
-          ),
-        ][index];
-      },
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: ListView.builder(
+        itemCount: 2,
+        itemBuilder: (context, index) {
+          return [
+            SettingCard(
+              name: 'Dark Mode',
+              setter: Switch(
+                  value: themeSwitch,
+                  onChanged: systemTheme
+                      ? null
+                      : (value) {
+                          setState(() {
+                            themeSwitch = value;
+                            widget.settings.themeSetter(
+                                value ? ThemeMode.dark : ThemeMode.light);
+                          });
+                        }),
+            ),
+            SettingCard(
+              name: 'Use System Theme',
+              setter: Switch(
+                  value: systemTheme,
+                  onChanged: (value) {
+                    setState(() {
+                      systemTheme = value;
+                      widget.settings.themeSetter(value
+                          ? ThemeMode.system
+                          : themeSwitch
+                              ? ThemeMode.dark
+                              : ThemeMode.light);
+                    });
+                  }),
+            ),
+          ][index];
+        },
+      ),
     );
   }
 }
