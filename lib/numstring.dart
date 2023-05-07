@@ -72,7 +72,7 @@ class _NumStringPageState extends State<NumStringPage> {
               controller: controller,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: 'e.g. 6.9',
+                hintText: 'e.g. 69',
                 suffixIcon: controller.text.isNotEmpty
                     ? IconButton(
                         icon: const Icon(Icons.clear),

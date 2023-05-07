@@ -20,6 +20,9 @@ dependencies:
   http: ^0.13.6
   url_launcher: ^6.1.10
   ffi: ^2.0.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:

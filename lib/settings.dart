@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: ListView.builder(
-        itemCount: 2,
+        itemCount: 3,
         itemBuilder: (context, index) {
           return [
             SettingCard(
@@ -86,6 +86,25 @@ class _SettingsPageState extends State<SettingsPage> {
                               : ThemeMode.light);
                     });
                   }),
+            ),
+            SettingCard(
+              name: 'Language',
+              setter: DropdownButton(
+                value: 'English',
+                items: const [
+                  DropdownMenuItem(
+                    value: 'English',
+                    child: Text('English'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Italian',
+                    child: Text('Italian'),
+                  ),
+                ],
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
             ),
           ][index];
         },

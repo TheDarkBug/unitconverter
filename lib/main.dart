@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'locales.dart';
 import 'quickconvert.dart';
 import 'currencies.dart';
 import 'numstring.dart';
@@ -43,6 +45,15 @@ class _AppState extends State<App> {
       darkTheme: ThemeData.dark(useMaterial3: true),
       themeMode: themeMode,
       home: HomeScreen(settings: settings),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        Locales.delegate
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('it'),
+      ],
     );
   }
 }
@@ -82,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text('Freedom Units'),
+              title: const Text(Locales.freedomUnits),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
@@ -93,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.money),
-              title: const Text('Currencies'),
+              title: const Text(Locales.currencies),
               onTap: () async {
                 Navigator.pop(context);
 
@@ -170,36 +181,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   return;
                 }
                 setState(() {
-                  _selecctedTitle = "Currencies";
+                  _selecctedTitle = Locales.currencies;
                   _selectedPage = const CurrenciesPage();
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.numbers),
-              title: const Text('Number to String'),
+              title: const Text(Locales.numberToString),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selecctedTitle = "Number to String";
+                  _selecctedTitle = Locales.numberToString;
                   _selectedPage = const NumStringPage();
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title: const Text(Locales.settings),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selecctedTitle = "Settings";
+                  _selecctedTitle = Locales.settings;
                   _selectedPage = SettingsPage(settings: widget.settings);
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.info),
-              title: const Text('About'),
+              title: const Text(Locales.about),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
