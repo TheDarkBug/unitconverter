@@ -43,7 +43,7 @@ class _NumStringPageState extends State<NumStringPage> {
       rustLang = value;
     });
     if (Platform.isAndroid) {
-      return DynamicLibrary.open('lib/arm64-v8a/libnum_string.so');
+      return DynamicLibrary.open('libnum_string.so');
     } else if (Platform.isLinux) {
       return DynamicLibrary.open('lib/libnum_string.so');
     } else if (Platform.isWindows) {

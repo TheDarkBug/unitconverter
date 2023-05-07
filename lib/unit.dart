@@ -149,7 +149,7 @@ List<Widget> getUnits(value, isMetric) {
       converted: isMetric ? value / 2.54 : value * 2.54,
       isMetric: isMetric,
     ),
-    const Divider(),
+    const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
     const Padding(
       padding: EdgeInsets.only(bottom: 20.0),
       child: Text(
@@ -180,7 +180,7 @@ List<Widget> getUnits(value, isMetric) {
           : ((value - 32) / 1.8) + 273.15,
       isMetric: isMetric,
     ),
-    const Divider(),
+    const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
     const Padding(
       padding: EdgeInsets.only(bottom: 20.0),
       child: Text(
@@ -209,7 +209,7 @@ List<Widget> getUnits(value, isMetric) {
       converted: isMetric ? value / 2.834952 : value * 2.834952,
       isMetric: isMetric,
     ),
-    const Divider(),
+    const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
     const Padding(
       padding: EdgeInsets.only(bottom: 20.0),
       child: Text(
