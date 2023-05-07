@@ -1,0 +1,3 @@
+[submodule "num-string"]
+	path = num-string
+	url = git@github.com:TheDarkBug/num-string.git

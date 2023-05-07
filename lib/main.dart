@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'quickconvert.dart';
 import 'currencies.dart';
+import 'numstring.dart';
 import 'settings.dart';
 
 void main() => runApp(const App());
@@ -171,6 +172,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   _selecctedTitle = "Currencies";
                   _selectedPage = const CurrenciesPage();
+                });
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.numbers),
+              title: const Text('Number to String'),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selecctedTitle = "Number to String";
+                  _selectedPage = const NumStringPage();
                 });
               },
             ),

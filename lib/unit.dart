@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
-
-double round(double value, int places) {
-  num mod = pow(10.0, places);
-  return ((value * mod).round().toDouble() / mod);
-}
 
 class Unit extends StatefulWidget {
   Unit(
@@ -32,8 +26,6 @@ class Unit extends StatefulWidget {
 class _UnitState extends State<Unit> {
   @override
   Widget build(BuildContext context) {
-    widget.value = round(widget.value, widget.places);
-    widget.converted = round(widget.converted, widget.places);
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       child: Card(
@@ -61,7 +53,7 @@ class _UnitState extends State<Unit> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            '${widget.isMetric || widget.converted <= 0 ? widget.value : widget.converted}${widget.iSsymbol}',
+                            '${widget.isMetric || widget.converted <= 0 ? widget.value.toStringAsFixed(widget.places) : widget.converted.toStringAsFixed(widget.places)}${widget.iSsymbol}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
@@ -88,7 +80,7 @@ class _UnitState extends State<Unit> {
                           alignment: Alignment.topRight,
                           child: Text(
                             widget.converted >= 0
-                                ? '${widget.isMetric ? widget.converted : widget.value}${widget.mSsymbol}'
+                                ? '${widget.isMetric ? widget.converted.toStringAsFixed(widget.places) : widget.value.toStringAsFixed(widget.places)}${widget.mSsymbol}'
                                 : 'Not available',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
