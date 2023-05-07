@@ -15,12 +15,14 @@ class Unit extends StatefulWidget {
       required this.iSsymbol,
       required this.value,
       required this.converted,
-      required this.isMetric});
+      required this.isMetric,
+      this.places = 3});
   final String mSname;
   final String iSname;
   final String mSsymbol;
   final String iSsymbol;
   final bool isMetric;
+  final int places;
   double value;
   double converted;
   @override
@@ -30,8 +32,8 @@ class Unit extends StatefulWidget {
 class _UnitState extends State<Unit> {
   @override
   Widget build(BuildContext context) {
-    widget.value = round(widget.value, 3);
-    widget.converted = round(widget.converted, 3);
+    widget.value = round(widget.value, widget.places);
+    widget.converted = round(widget.converted, widget.places);
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       child: Card(
@@ -59,7 +61,7 @@ class _UnitState extends State<Unit> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            '${widget.isMetric ? widget.value : widget.converted}${widget.iSsymbol}',
+                            '${widget.isMetric || widget.converted <= 0 ? widget.value : widget.converted}${widget.iSsymbol}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
@@ -85,7 +87,9 @@ class _UnitState extends State<Unit> {
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                            '${widget.isMetric ? widget.converted : widget.value}${widget.mSsymbol}',
+                            widget.converted >= 0
+                                ? '${widget.isMetric ? widget.converted : widget.value}${widget.mSsymbol}'
+                                : 'Not available',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,

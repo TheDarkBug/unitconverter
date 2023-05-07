@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'quickconvert.dart';
@@ -101,25 +103,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       return AlertDialog(
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const <Widget>[
-                            SizedBox(height: 20),
-                            CircularProgressIndicator(),
-                            SizedBox(height: 20),
-                            Text('Loading currencies from binance...'),
+                          children: <Widget>[
+                            const SizedBox(height: 20),
+                            const CircularProgressIndicator(),
+                            const SizedBox(height: 20),
+                            Text.rich(
+                              TextSpan(
+                                text: 'Loading currencies from ',
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'JsDelivr',
+                                    style: const TextStyle(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launchUrl(Uri.parse(
+                                            'https://cdn.jsdelivr.net'));
+                                      },
+                                  ),
+                                  const TextSpan(text: '...'),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       );
                     });
 
                 try {
-                  await http.get(Uri.parse("https://api.binance.com")).timeout(
+                  await http.get(Uri.parse("https://cdn.jsdelivr.net")).timeout(
                     const Duration(seconds: 5),
                     onTimeout: () {
-                      return http.Response("Connection timed out!", 408);
+                      throw TimeoutException("Connection timed out!");
                     },
-                  ).then((value) {
-                    Navigator.pop(context);
-                  });
+                  );
                 } catch (e) {
                   Navigator.pop(context);
                   showDialog(
@@ -150,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return;
                 }
                 setState(() {
-                  _selecctedTitle = "Money";
+                  _selecctedTitle = "Currencies";
                   _selectedPage = const CurrenciesPage();
                 });
               },
