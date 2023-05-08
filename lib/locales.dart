@@ -26,8 +26,10 @@ class MainLocales {
         retryLater = 'Riprova più tardi';
         aboutContent = [
           'Creato da ',
-          'Reso possibile da ',
-          'Valute rese possibili da '
+          'Sviluppato Tramite ',
+          'Valute ottenute da ',
+          'Codice Disponibile su ',
+          '© 2023 TheDarkBug'
         ];
         break;
       case 'en':
@@ -41,7 +43,13 @@ class MainLocales {
         timedOut = 'Connection Timed Out';
         notConnected = 'Not connected';
         retryLater = 'Please Retry Later';
-        aboutContent = ['Created by ', 'Powered by ', 'Currencies Powered by '];
+        aboutContent = [
+          'Created by ',
+          'Powered by ',
+          'Currencies Powered by ',
+          'Code Publicly Available on ',
+          '© 2023 TheDarkBug'
+        ];
         break;
     }
   }

@@ -211,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     context: context,
                     applicationName: currentLocale.appName,
                     applicationVersion: currentLocale.appVersion,
+                    applicationLegalese: currentLocale.main.aboutContent[4],
                     applicationIcon: const Center(
                       child: Image(
                         image: AssetImage('assets/icons/icon.png'),
@@ -218,18 +219,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     children: <Widget>[
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(currentLocale.main.aboutContent[0]),
-                          GestureDetector(
+                          InkWell(
                             child: const Text(
-                              'TheDarkBug',
+                              "TheDarkBug",
                               style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue,
-                                decorationColor: Colors.blue,
-                              ),
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.blue),
                             ),
                             onTap: () {
                               launchUrl(
@@ -243,14 +244,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(currentLocale.main.aboutContent[1]),
-                          GestureDetector(
+                          InkWell(
                             child: const Text(
-                              'Flutter',
+                              "Flutter",
                               style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue,
-                                decorationColor: Colors.blue,
-                              ),
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.blue),
                             ),
                             onTap: () {
                               launchUrl(Uri.parse('https://flutter.dev'));
@@ -263,18 +263,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(currentLocale.main.aboutContent[2]),
-                          GestureDetector(
+                          InkWell(
                             child: const Text(
-                              'JsDelivr',
+                              "JsDelivr",
                               style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue,
-                                decorationColor: Colors.blue,
-                              ),
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.blue),
                             ),
                             onTap: () {
                               launchUrl(Uri.parse('https://cdn.jsdelivr.net'));
                             },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(currentLocale.main.aboutContent[3]),
+                          InkWell(
+                            child: const Text(
+                              "GitHub",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.blue),
+                            ),
+                            onTap: () => launchUrl(Uri.parse(
+                                'https://github.com/TheDarkBug/unitconverter')),
                           ),
                         ],
                       ),
