@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +25,10 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
+    rootBundle.loadString('LICENSE').then((value) {
+      LicenseRegistry.addLicense(() => Stream<LicenseEntry>.value(
+          LicenseEntryWithLineBreaks(<String>['Unit Converter'], value)));
+    });
     super.initState();
     settings = Settings(
         themeSetter: (ThemeMode mode) {
@@ -211,7 +217,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     context: context,
                     applicationName: currentLocale.appName,
                     applicationVersion: currentLocale.appVersion,
-                    applicationLegalese: currentLocale.main.aboutContent[4],
+                    applicationLegalese:
+                        "${currentLocale.main.aboutContent[4]} ${currentLocale.developer}",
                     applicationIcon: const Center(
                       child: Image(
                         image: AssetImage('assets/icons/icon.png'),
@@ -225,16 +232,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Text(currentLocale.main.aboutContent[0]),
                           InkWell(
-                            child: const Text(
-                              "TheDarkBug",
-                              style: TextStyle(
+                            child: Text(
+                              currentLocale.developer,
+                              style: const TextStyle(
                                   color: Colors.blue,
                                   decoration: TextDecoration.underline,
                                   decorationColor: Colors.blue),
                             ),
                             onTap: () {
-                              launchUrl(
-                                  Uri.parse('https://github.com/TheDarkBug'));
+                              launchUrl(Uri.parse(
+                                  'https://github.com/${currentLocale.developer}'));
                             },
                           ),
                         ],
@@ -291,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   decorationColor: Colors.blue),
                             ),
                             onTap: () => launchUrl(Uri.parse(
-                                'https://github.com/TheDarkBug/unitconverter')),
+                                'https://github.com/${currentLocale.developer}/unitconverter')),
                           ),
                         ],
                       ),

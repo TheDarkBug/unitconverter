@@ -1,5 +1,6 @@
 name: unit_converter
 description: Convert between different units of measurement all at once.
+license: MIT
 publish_to: 'none'
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning

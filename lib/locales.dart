@@ -28,8 +28,8 @@ class MainLocales {
           'Creato da ',
           'Sviluppato Tramite ',
           'Valute ottenute da ',
-          'Codice Disponibile su ',
-          '© 2023 TheDarkBug'
+          'Codice Distribuito su ',
+          '© 2023',
         ];
         break;
       case 'en':
@@ -47,8 +47,8 @@ class MainLocales {
           'Created by ',
           'Powered by ',
           'Currencies Powered by ',
-          'Code Publicly Available on ',
-          '© 2023 TheDarkBug'
+          'Code Distributed on ',
+          '© 2023',
         ];
         break;
     }
@@ -217,6 +217,7 @@ class Locales {
   List id = ['', ''];
   String appName = 'Unit Converter';
   String appVersion = '1.0.0';
+  String developer = 'TheDarkBug';
   MainLocales main = MainLocales();
   SettingsLocales settings = SettingsLocales();
   QuickConvertLocales quickConvert = QuickConvertLocales();
