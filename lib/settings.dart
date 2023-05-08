@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'locales.dart';
 
 class SettingCard extends StatefulWidget {
   const SettingCard({super.key, required this.name, required this.setter});
@@ -28,9 +29,13 @@ class _SettingCardState extends State<SettingCard> {
 }
 
 class Settings {
-  Settings({required this.themeSetter, required this.getTheme});
+  Settings(
+      {required this.themeSetter,
+      required this.getTheme,
+      required this.setLocale});
   final void Function(ThemeMode mode) themeSetter;
   final ThemeMode Function() getTheme;
+  final void Function(String code) setLocale;
 }
 
 class SettingsPage extends StatefulWidget {
@@ -59,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
         itemBuilder: (context, index) {
           return [
             SettingCard(
-              name: 'Dark Mode',
+              name: currentLocale.settings.darkMode,
               setter: Switch(
                   value: themeSwitch,
                   onChanged: systemTheme
@@ -73,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         }),
             ),
             SettingCard(
-              name: 'Use System Theme',
+              name: currentLocale.settings.systemTheme,
               setter: Switch(
                   value: systemTheme,
                   onChanged: (value) {
@@ -88,21 +93,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   }),
             ),
             SettingCard(
-              name: 'Language',
-              setter: DropdownButton(
-                value: 'English',
-                items: const [
-                  DropdownMenuItem(
-                    value: 'English',
-                    child: Text('English'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Italian',
-                    child: Text('Italian'),
-                  ),
-                ],
+              name: currentLocale.settings.language,
+              setter: DropdownButton<String>(
+                value: currentLocale.id[0],
+                items: currentLocale.langs
+                    .map<DropdownMenuItem<String>>((locale) => DropdownMenuItem(
+                          value: locale['code'],
+                          child: Text(locale['name']),
+                        ))
+                    .toList(),
                 onChanged: (value) {
-                  setState(() {});
+                  setState(() {
+                    widget.settings.setLocale(value!);
+                  });
                 },
               ),
             ),

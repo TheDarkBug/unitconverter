@@ -12,55 +12,15 @@ class CurrenciesPage extends StatefulWidget {
 class _CurrenciesPageState extends State<CurrenciesPage> {
   double value = 0.0;
   List<Map> currencies = [
-    {
-      'name': 'Dollar',
-      'short': 'Dollar',
-      'symbol': '\$',
-      'code': 'usd',
-      'value': -1.0
-    },
-    {
-      'name': 'Euro',
-      'short': 'Euro',
-      'symbol': '€',
-      'code': 'eur',
-      'value': -1.0
-    },
-    {
-      'name': 'Canadian Dollar',
-      'short': 'CA Dollar',
-      'symbol': 'CA\$',
-      'code': 'cad',
-      'value': -1.0
-    },
-    {
-      'name': 'Australian Dollar',
-      'short': 'AU Dollar',
-      'symbol': 'AU\$',
-      'code': 'aud',
-      'value': -1.0
-    },
-    {
-      'name': 'Pound',
-      'short': 'Pound',
-      'symbol': '£',
-      'code': 'gbp',
-      'value': -1.0
-    },
-    {
-      'name': 'New Zealand Dollar',
-      'short': 'NZ Dollar',
-      'symbol': 'NZ\$',
-      'code': 'nzd',
-      'value': -1.0
-    },
-    {
-      'name': 'Swiss Franc',
-      'short': 'SW Franc',
-      'symbol': 'CHF',
-      'code': 'chf',
-      'value': -1.0
-    },
+    {'name': 'Dollar (USD)', 'symbol': '\$', 'code': 'usd', 'value': -1.0},
+    {'name': 'Euro (EUR)', 'symbol': '€', 'code': 'eur', 'value': -1.0},
+    {'name': 'CA Dollar (CAD)', 'symbol': 'CA\$', 'code': 'cad', 'value': -1.0},
+    {'name': 'AU Dollar (AUD)', 'symbol': 'AU\$', 'code': 'aud', 'value': -1.0},
+    {'name': 'Pound (GBP)', 'symbol': '£', 'code': 'gbp', 'value': -1.0},
+    {'name': 'NZ Dollar (NZD)', 'symbol': 'NZ\$', 'code': 'nzd', 'value': -1.0},
+    {'name': 'SW Franc (CHF)', 'symbol': 'CHF', 'code': 'chf', 'value': -1.0},
+    {'name': 'Yen (JPY)', 'symbol': '¥', 'code': 'jpy', 'value': -1.0},
+    {'name': 'CN Yuan (CNY)', 'symbol': '¥', 'code': 'cny', 'value': -1.0}
   ];
   int fromCurrencyIdx = 0;
   final TextEditingController controller = TextEditingController();
@@ -143,7 +103,7 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
                 items: currencies.map((currency) {
                   return DropdownMenuItem<String>(
                     value: currency['code'],
-                    child: Text(currency['short']),
+                    child: Text(currency['name']),
                   );
                 }).toList(),
               ),

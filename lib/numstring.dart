@@ -4,6 +4,7 @@ import 'dart:io' show Platform;
 import 'dart:ffi';
 import 'dart:convert';
 import 'package:ffi/ffi.dart';
+import 'locales.dart';
 
 typedef ConvertFunc = Pointer<Int8> Function(
     Pointer<Int8> input, Pointer<Int8> lang);
@@ -17,7 +18,7 @@ class NumStringPage extends StatefulWidget {
 class _NumStringPageState extends State<NumStringPage> {
   String result = '';
   String rustLang = '';
-  var rustConvert;
+  late ConvertFunc rustConvert;
   final TextEditingController controller = TextEditingController();
 
   int cStringLength(Pointer<Int8> string) {
@@ -39,7 +40,7 @@ class _NumStringPageState extends State<NumStringPage> {
   }
 
   DynamicLibrary loadLibrary() {
-    rootBundle.loadString('assets/langs/italian.txt').then((value) {
+    rootBundle.loadString(currentLocale.numString.langFilePath).then((value) {
       rustLang = value;
     });
     if (Platform.isAndroid) {
@@ -92,7 +93,7 @@ class _NumStringPageState extends State<NumStringPage> {
             onTap: () {
               Clipboard.setData(ClipboardData(text: result));
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Copied to clipboard')));
+                  SnackBar(content: Text(currentLocale.numString.copied)));
             },
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),

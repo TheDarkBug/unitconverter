@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -21,39 +20,32 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   ThemeMode themeMode = ThemeMode.system;
   late Settings settings;
-  void setTheme(ThemeMode mode) {
-    setState(() {
-      themeMode = mode;
-    });
-  }
-
-  ThemeMode getTheme() {
-    return themeMode;
-  }
 
   @override
   void initState() {
     super.initState();
-    settings = Settings(themeSetter: setTheme, getTheme: getTheme);
+    settings = Settings(
+        themeSetter: (ThemeMode mode) {
+          setState(() {
+            themeMode = mode;
+          });
+        },
+        getTheme: () => themeMode,
+        setLocale: (String code) {
+          setState(() {
+            currentLocale.load(code);
+          });
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Unit Converter',
+      title: currentLocale.appName,
       theme: ThemeData.light(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
       themeMode: themeMode,
       home: HomeScreen(settings: settings),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        Locales.delegate
-      ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('it'),
-      ],
     );
   }
 }
@@ -67,12 +59,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Widget _selectedPage = const QuickConvertPage();
-  String _selecctedTitle = "Metric <-> Imperial";
+  String _selectedTitle = currentLocale.main.freedomUnits;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_selecctedTitle)),
+      appBar: AppBar(title: Text(_selectedTitle)),
       body: _selectedPage,
       drawer: Drawer(
         child: ListView(
@@ -93,18 +85,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text(Locales.freedomUnits),
+              title: Text(currentLocale.main.freedomUnits),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selecctedTitle = "Metric <-> Imperial";
+                  _selectedTitle = currentLocale.main.freedomUnits;
                   _selectedPage = const QuickConvertPage();
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.money),
-              title: const Text(Locales.currencies),
+              title: Text(currentLocale.main.currencies),
               onTap: () async {
                 Navigator.pop(context);
 
@@ -121,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: 20),
                             Text.rich(
                               TextSpan(
-                                text: 'Loading currencies from ',
+                                text: currentLocale.main.loadingCurrencies,
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: 'JsDelivr',
@@ -148,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   await http.get(Uri.parse("https://cdn.jsdelivr.net")).timeout(
                     const Duration(seconds: 5),
                     onTimeout: () {
-                      throw TimeoutException("Connection timed out!");
+                      throw TimeoutException(currentLocale.main.timedOut);
                     },
                   );
                 } catch (e) {
@@ -158,11 +150,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     barrierDismissible: false,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('No Internet Connection'),
+                        title: Text(currentLocale.main.notConnected,
+                            textAlign: TextAlign.center),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            const Text('Please check your internet connection'),
+                            Text(currentLocale.main.retryLater),
                             const SizedBox(height: 20.0),
                             Text("$e"),
                           ],
@@ -172,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('OK'),
+                            child: const Text('Ok'),
                           ),
                         ],
                       );
@@ -181,47 +174,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   return;
                 }
                 setState(() {
-                  _selecctedTitle = Locales.currencies;
+                  _selectedTitle = currentLocale.main.currencies;
                   _selectedPage = const CurrenciesPage();
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.numbers),
-              title: const Text(Locales.numberToString),
+              title: Text(currentLocale.main.numberToString),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selecctedTitle = Locales.numberToString;
+                  _selectedTitle = currentLocale.main.numberToString;
                   _selectedPage = const NumStringPage();
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text(Locales.settings),
+              title: Text(currentLocale.main.settings),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selecctedTitle = Locales.settings;
+                  _selectedTitle = currentLocale.main.settings;
                   _selectedPage = SettingsPage(settings: widget.settings);
                 });
               },
             ),
             ListTile(
               leading: const Icon(Icons.info),
-              title: const Text(Locales.about),
+              title: Text(currentLocale.main.about),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
                   showAboutDialog(
                       context: context,
-                      applicationName: 'Unit Converter',
-                      applicationVersion: '1.0.0',
+                      applicationName: currentLocale.appName,
+                      applicationVersion: currentLocale.appVersion,
                       applicationIcon: const FlutterLogo(),
                       children: <Widget>[
-                        const Text('Unit Converter'),
-                        const Text('Version 1.0.0'),
+                        Text(currentLocale.appName),
+                        Text(
+                            '${currentLocale.main.version} ${currentLocale.appVersion}'),
                       ]);
                 });
               },
