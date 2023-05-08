@@ -115,15 +115,15 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
               itemCount: currencies.length,
               itemBuilder: (BuildContext context, int index) {
                 return Center(
-                  child: Unit(
-                    iSname: currencies[fromCurrencyIdx]['name'],
-                    mSname: currencies[index]['name'],
-                    iSsymbol: currencies[fromCurrencyIdx]['symbol'],
-                    mSsymbol: currencies[index]['symbol'],
+                  child: UnitCard(
+                    leftText: currencies[fromCurrencyIdx]['name'],
+                    rightText: currencies[index]['name'],
+                    leftSymbol: currencies[fromCurrencyIdx]['symbol'],
+                    rightSymbol: currencies[index]['symbol'],
                     value: value,
                     converted: (value * currencies[fromCurrencyIdx]['value']) /
                         currencies[index]['value'],
-                    isMetric: true,
+                    swapValues: true,
                     places: 2,
                   ),
                 );

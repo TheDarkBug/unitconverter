@@ -61,9 +61,135 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: getUnits(value, isMetric).length,
-            itemBuilder: (BuildContext context, int index) =>
-                Center(child: getUnits(value, isMetric)[index]),
+            itemCount: 17,
+            itemBuilder: (BuildContext context, int index) => Center(
+                child: <Widget>[
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                child: Text(
+                  'Length',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              UnitCard(
+                  rightText: 'Kilometer',
+                  leftText: 'Mile',
+                  leftSymbol: 'km',
+                  rightSymbol: 'mi',
+                  value: value,
+                  converted: isMetric ? value / 1.60934 : value * 1.60934,
+                  swapValues: isMetric),
+              UnitCard(
+                  rightText: 'Meter',
+                  leftText: 'Yard',
+                  leftSymbol: 'm',
+                  rightSymbol: 'yd',
+                  value: value,
+                  converted: isMetric ? value * 1.093613 : value / 1.093613,
+                  swapValues: isMetric),
+              UnitCard(
+                  rightText: 'Meter',
+                  leftText: 'Feet',
+                  leftSymbol: 'm',
+                  rightSymbol: 'ft',
+                  value: value,
+                  converted: isMetric ? value * 3.28084 : value / 3.28084,
+                  swapValues: isMetric),
+              UnitCard(
+                  rightText: 'Centimeter',
+                  leftText: 'Inch',
+                  leftSymbol: 'cm',
+                  rightSymbol: 'in',
+                  value: value,
+                  converted: isMetric ? value / 2.54 : value * 2.54,
+                  swapValues: isMetric),
+              const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                child: Text(
+                  'Temperature',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              UnitCard(
+                  rightText: 'Celsius',
+                  leftText: 'Fahrenheit',
+                  leftSymbol: '°C',
+                  rightSymbol: '°F',
+                  value: value,
+                  converted: isMetric ? (value * 1.8) + 32 : (value - 32) / 1.8,
+                  swapValues: isMetric),
+              UnitCard(
+                  rightText: 'Kelvin',
+                  leftText: 'Fahrenheit',
+                  leftSymbol: 'K',
+                  rightSymbol: '°F',
+                  value: value,
+                  converted: isMetric
+                      ? ((value - 273.15) * 1.8) + 32
+                      : ((value - 32) / 1.8) + 273.15,
+                  swapValues: isMetric),
+              const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                child: Text(
+                  'Weight',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              UnitCard(
+                  rightText: 'Kilogram',
+                  leftText: 'Pound',
+                  leftSymbol: 'kg',
+                  rightSymbol: 'lb',
+                  value: value,
+                  converted: isMetric ? value / 0.45359237 : value * 0.45359237,
+                  swapValues: isMetric),
+              UnitCard(
+                  rightText: 'Hectogram',
+                  leftText: 'Ounce',
+                  leftSymbol: 'g',
+                  rightSymbol: 'oz',
+                  value: value,
+                  converted: isMetric ? value / 2.834952 : value * 2.834952,
+                  swapValues: isMetric),
+              const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                child: Text(
+                  'Volume',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              UnitCard(
+                  rightText: 'Liter',
+                  leftText: 'US Gallon',
+                  leftSymbol: 'l',
+                  rightSymbol: 'gal',
+                  value: value,
+                  converted: isMetric ? value / 3.78541 : value * 3.78541,
+                  swapValues: isMetric),
+              UnitCard(
+                  rightText: 'Liter',
+                  leftText: 'Imperial Gallon',
+                  leftSymbol: 'l',
+                  rightSymbol: 'gal',
+                  value: value,
+                  converted: isMetric ? value / 4.54609 : value * 4.54609,
+                  swapValues: isMetric),
+            ][index]),
           ),
         ),
       ],
