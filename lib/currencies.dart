@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'locales.dart';
 import 'unit.dart';
 
 class CurrenciesPage extends StatefulWidget {
@@ -12,15 +13,60 @@ class CurrenciesPage extends StatefulWidget {
 class _CurrenciesPageState extends State<CurrenciesPage> {
   double value = 0.0;
   List<Map> currencies = [
-    {'name': 'Dollar (USD)', 'symbol': '\$', 'code': 'usd', 'value': -1.0},
-    {'name': 'Euro (EUR)', 'symbol': '€', 'code': 'eur', 'value': -1.0},
-    {'name': 'CA Dollar (CAD)', 'symbol': 'CA\$', 'code': 'cad', 'value': -1.0},
-    {'name': 'AU Dollar (AUD)', 'symbol': 'AU\$', 'code': 'aud', 'value': -1.0},
-    {'name': 'Pound (GBP)', 'symbol': '£', 'code': 'gbp', 'value': -1.0},
-    {'name': 'NZ Dollar (NZD)', 'symbol': 'NZ\$', 'code': 'nzd', 'value': -1.0},
-    {'name': 'SW Franc (CHF)', 'symbol': 'CHF', 'code': 'chf', 'value': -1.0},
-    {'name': 'Yen (JPY)', 'symbol': '¥', 'code': 'jpy', 'value': -1.0},
-    {'name': 'CN Yuan (CNY)', 'symbol': '¥', 'code': 'cny', 'value': -1.0}
+    {
+      'name': '${currentLocale.currencies.dollar} (USD)',
+      'symbol': '\$',
+      'code': 'usd',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.euro} (EUR)',
+      'symbol': '€',
+      'code': 'eur',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.canadianDollar} (CAD)',
+      'symbol': 'CA\$',
+      'code': 'cad',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.australianDollar} (AUD)',
+      'symbol': 'AU\$',
+      'code': 'aud',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.pound} (GBP)',
+      'symbol': '£',
+      'code': 'gbp',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.newZealandDollar} (NZD)',
+      'symbol': 'NZ\$',
+      'code': 'nzd',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.swissFranc} (CHF)',
+      'symbol': 'CHF',
+      'code': 'chf',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.yen} (JPY)',
+      'symbol': '¥',
+      'code': 'jpy',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.currencies.yuan} (CNY)',
+      'symbol': '¥',
+      'code': 'cny',
+      'value': -1.0
+    }
   ];
   int fromCurrencyIdx = 0;
   final TextEditingController controller = TextEditingController();
@@ -116,8 +162,8 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
               itemBuilder: (BuildContext context, int index) {
                 return Center(
                   child: UnitCard(
-                    leftText: currencies[fromCurrencyIdx]['name'],
-                    rightText: currencies[index]['name'],
+                    leftText: currencies[index]['name'],
+                    rightText: currencies[fromCurrencyIdx]['name'],
                     leftSymbol: currencies[fromCurrencyIdx]['symbol'],
                     rightSymbol: currencies[index]['symbol'],
                     leftValue: value,

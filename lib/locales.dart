@@ -118,8 +118,8 @@ class QuickConvertLocales {
         imperialGallon = 'Imperial Gallon';
         break;
       case 'it':
-        metric = 'Metrico';
-        imperial = 'Imperiale';
+        metric = 'Sistema Metrico';
+        imperial = 'Sistema Imperiale';
         length = 'Lunghezza';
         kilometer = 'Kilometri';
         mile = 'Miglia';
@@ -141,6 +141,34 @@ class QuickConvertLocales {
         liter = 'Litri';
         gallon = 'Galloni';
         imperialGallon = 'Galloni Imperiali';
+        break;
+      default:
+        throw Exception('Locale code $code is not supported');
+    }
+  }
+}
+
+class CurrenciesLocales {
+  String dollar = 'Dollar';
+  String euro = 'Euro';
+  String canadianDollar = 'CA Dollar';
+  String australianDollar = 'AU Dollar';
+  String pound = 'Pound';
+  String newZealandDollar = 'NZ Dollar';
+  String swissFranc = 'SW Franc';
+  String yen = 'Yen';
+  String yuan = 'CN Yuan';
+  void load(String code) {
+    switch (code) {
+      case 'en':
+        break;
+      case 'it':
+        dollar = 'Dollari';
+        canadianDollar = 'CA $dollar';
+        australianDollar = 'AU $dollar';
+        pound = 'Sterline';
+        newZealandDollar = 'NZ $dollar';
+        swissFranc = 'Franchi SW';
         break;
       default:
         throw Exception('Locale code $code is not supported');
@@ -182,11 +210,13 @@ class Locales {
   MainLocales main = MainLocales();
   SettingsLocales settings = SettingsLocales();
   QuickConvertLocales quickConvert = QuickConvertLocales();
+  CurrenciesLocales currencies = CurrenciesLocales();
   NumStringLocales numString = NumStringLocales();
   void load(code) {
     main.load(code);
     settings.load(code);
     quickConvert.load(code);
+    currencies.load(code);
     numString.load(code);
     switch (code) {
       case 'en':
