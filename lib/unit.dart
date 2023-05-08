@@ -7,8 +7,8 @@ class UnitCard extends StatefulWidget {
       required this.rightText,
       required this.rightSymbol,
       required this.leftSymbol,
-      required this.value,
-      required this.converted,
+      required this.leftValue,
+      required this.rightValue,
       required this.swapValues,
       this.places = 3});
   final String leftText;
@@ -17,8 +17,8 @@ class UnitCard extends StatefulWidget {
   final String leftSymbol;
   final bool swapValues;
   final int places;
-  final double value;
-  final double converted;
+  final double leftValue;
+  final double rightValue;
   @override
   State<UnitCard> createState() => _UnitCardState();
 }
@@ -53,7 +53,12 @@ class _UnitCardState extends State<UnitCard> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            '${widget.swapValues || widget.converted <= 0 ? widget.value.toStringAsFixed(widget.places) : widget.converted.toStringAsFixed(widget.places)}${widget.leftSymbol}',
+                            (widget.swapValues
+                                    ? widget.leftValue
+                                        .toStringAsFixed(widget.places)
+                                    : widget.rightValue
+                                        .toStringAsFixed(widget.places)) +
+                                widget.leftSymbol,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
@@ -79,9 +84,12 @@ class _UnitCardState extends State<UnitCard> {
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                            widget.converted >= 0
-                                ? '${widget.swapValues ? widget.converted.toStringAsFixed(widget.places) : widget.value.toStringAsFixed(widget.places)}${widget.rightSymbol}'
-                                : 'Not available',
+                            (widget.swapValues
+                                    ? widget.rightValue
+                                        .toStringAsFixed(widget.places)
+                                    : widget.leftValue
+                                        .toStringAsFixed(widget.places)) +
+                                widget.rightSymbol,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
