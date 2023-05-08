@@ -208,21 +208,78 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
                 setState(() {
                   showAboutDialog(
-                      context: context,
-                      applicationName: currentLocale.appName,
-                      applicationVersion: currentLocale.appVersion,
-                      applicationIcon: const Center(
-                        child: Image(
-                          image: AssetImage('assets/icons/icon.png'),
-                          height: 85.0,
-                        ),
+                    context: context,
+                    applicationName: currentLocale.appName,
+                    applicationVersion: currentLocale.appVersion,
+                    applicationIcon: const Center(
+                      child: Image(
+                        image: AssetImage('assets/icons/icon.png'),
+                        height: 85.0,
                       ),
-                      children: currentLocale.main.aboutContent.map((e) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(e),
-                        );
-                      }).toList());
+                    ),
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(currentLocale.main.aboutContent[0]),
+                          GestureDetector(
+                            child: const Text(
+                              'TheDarkBug',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                                decorationColor: Colors.blue,
+                              ),
+                            ),
+                            onTap: () {
+                              launchUrl(
+                                  Uri.parse('https://github.com/TheDarkBug'));
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(currentLocale.main.aboutContent[1]),
+                          GestureDetector(
+                            child: const Text(
+                              'Flutter',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                                decorationColor: Colors.blue,
+                              ),
+                            ),
+                            onTap: () {
+                              launchUrl(Uri.parse('https://flutter.dev'));
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(currentLocale.main.aboutContent[2]),
+                          GestureDetector(
+                            child: const Text(
+                              'JsDelivr',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                                decorationColor: Colors.blue,
+                              ),
+                            ),
+                            onTap: () {
+                              launchUrl(Uri.parse('https://cdn.jsdelivr.net'));
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
                 });
               },
             ),
