@@ -65,6 +65,89 @@ class SettingsLocales {
   }
 }
 
+class QuickConvertLocales {
+  String metric = '';
+  String imperial = '';
+  String length = '';
+  String kilometer = '';
+  String mile = '';
+  String meter = '';
+  String yard = '';
+  String feet = '';
+  String centimeter = '';
+  String inch = '';
+  String temperature = '';
+  String celsius = '';
+  String fahrenheit = '';
+  String kelvin = '';
+  String weight = '';
+  String kilogram = '';
+  String pound = '';
+  String gram = '';
+  String ounce = '';
+  String volume = '';
+  String liter = '';
+  String gallon = '';
+  String imperialGallon = '';
+
+  void load(String code) {
+    switch (code) {
+      case 'en':
+        metric = 'Metric';
+        imperial = 'Imperial';
+        length = 'Length';
+        kilometer = 'Kilometer';
+        mile = 'Mile';
+        meter = 'Meter';
+        yard = 'Yard';
+        feet = 'Feet';
+        centimeter = 'Centimeter';
+        inch = 'Inch';
+        temperature = 'Temperature';
+        celsius = 'Celsius';
+        fahrenheit = 'Fahrenheit';
+        kelvin = 'Kelvin';
+        weight = 'Weight';
+        kilogram = 'Kilogram';
+        pound = 'Pound';
+        gram = 'Gram';
+        ounce = 'Ounce';
+        volume = 'Volume';
+        liter = 'Liter';
+        gallon = 'Gallon';
+        imperialGallon = 'Imperial Gallon';
+        break;
+      case 'it':
+        metric = 'Metrico';
+        imperial = 'Imperiale';
+        length = 'Lunghezza';
+        kilometer = 'Kilometri';
+        mile = 'Miglia';
+        meter = 'Metri';
+        yard = 'Iarde';
+        feet = 'Piedi';
+        centimeter = 'Centimetri';
+        inch = 'Pollici';
+        temperature = 'Temperatura';
+        celsius = 'Celsius';
+        fahrenheit = 'Fahrenheit';
+        kelvin = 'Kelvin';
+        weight = 'Peso';
+        kilogram = 'Kilogrammi';
+        pound = 'Libbre';
+        gram = 'Grammi';
+        ounce = 'Once';
+        volume = 'Volume';
+        liter = 'Litri';
+        gallon = 'Galloni';
+        imperialGallon = 'Galloni Imperiali';
+        break;
+      default:
+        throw Exception('Locale code $code is not supported');
+    }
+  }
+}
+
 class NumStringLocales {
   String langFilePath = '';
   String copied = '';
@@ -98,10 +181,12 @@ class Locales {
   String appVersion = '1.0.0';
   MainLocales main = MainLocales();
   SettingsLocales settings = SettingsLocales();
+  QuickConvertLocales quickConvert = QuickConvertLocales();
   NumStringLocales numString = NumStringLocales();
   void load(code) {
     main.load(code);
     settings.load(code);
+    quickConvert.load(code);
     numString.load(code);
     switch (code) {
       case 'en':

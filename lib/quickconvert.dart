@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'locales.dart';
 import 'unit.dart';
 
 class QuickConvertPage extends StatefulWidget {
@@ -25,7 +26,9 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
                   controller: controller,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: isMetric ? 'Metric' : 'Imperial',
+                    labelText: isMetric
+                        ? currentLocale.quickConvert.metric
+                        : currentLocale.quickConvert.imperial,
                     hintText: 'e.g. 6.9',
                     suffixIcon: controller.text.isNotEmpty
                         ? IconButton(
@@ -64,62 +67,62 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
             itemCount: 17,
             itemBuilder: (BuildContext context, int index) => Center(
                 child: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  'Length',
-                  style: TextStyle(
+                  currentLocale.quickConvert.length,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                   ),
                 ),
               ),
               UnitCard(
-                  rightText: 'Kilometer',
-                  leftText: 'Mile',
+                  rightText: currentLocale.quickConvert.kilometer,
+                  leftText: currentLocale.quickConvert.mile,
                   leftSymbol: 'km',
                   rightSymbol: 'mi',
                   leftValue: value,
                   rightValue: isMetric ? value / 1.60934 : value * 1.60934,
                   swapValues: isMetric),
               UnitCard(
-                  rightText: 'Meter',
-                  leftText: 'Yard',
+                  rightText: currentLocale.quickConvert.meter,
+                  leftText: currentLocale.quickConvert.yard,
                   leftSymbol: 'm',
                   rightSymbol: 'yd',
                   leftValue: value,
                   rightValue: isMetric ? value * 1.093613 : value / 1.093613,
                   swapValues: isMetric),
               UnitCard(
-                  rightText: 'Meter',
-                  leftText: 'Feet',
+                  rightText: currentLocale.quickConvert.meter,
+                  leftText: currentLocale.quickConvert.feet,
                   leftSymbol: 'm',
                   rightSymbol: 'ft',
                   leftValue: value,
                   rightValue: isMetric ? value * 3.28084 : value / 3.28084,
                   swapValues: isMetric),
               UnitCard(
-                  rightText: 'Centimeter',
-                  leftText: 'Inch',
+                  rightText: currentLocale.quickConvert.centimeter,
+                  leftText: currentLocale.quickConvert.inch,
                   leftSymbol: 'cm',
                   rightSymbol: 'in',
                   leftValue: value,
                   rightValue: isMetric ? value / 2.54 : value * 2.54,
                   swapValues: isMetric),
               const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  'Temperature',
-                  style: TextStyle(
+                  currentLocale.quickConvert.temperature,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                   ),
                 ),
               ),
               UnitCard(
-                  rightText: 'Celsius',
-                  leftText: 'Fahrenheit',
+                  rightText: currentLocale.quickConvert.celsius,
+                  leftText: currentLocale.quickConvert.fahrenheit,
                   leftSymbol: '°C',
                   rightSymbol: '°F',
                   leftValue: value,
@@ -127,8 +130,8 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
                       isMetric ? (value * 1.8) + 32 : (value - 32) / 1.8,
                   swapValues: isMetric),
               UnitCard(
-                  rightText: 'Kelvin',
-                  leftText: 'Fahrenheit',
+                  rightText: currentLocale.quickConvert.kelvin,
+                  leftText: currentLocale.quickConvert.fahrenheit,
                   leftSymbol: 'K',
                   rightSymbol: '°F',
                   leftValue: value,
@@ -137,19 +140,19 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
                       : ((value - 32) / 1.8) + 273.15,
                   swapValues: isMetric),
               const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  'Weight',
-                  style: TextStyle(
+                  currentLocale.quickConvert.weight,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                   ),
                 ),
               ),
               UnitCard(
-                  rightText: 'Kilogram',
-                  leftText: 'Pound',
+                  rightText: currentLocale.quickConvert.kilogram,
+                  leftText: currentLocale.quickConvert.pound,
                   leftSymbol: 'kg',
                   rightSymbol: 'lb',
                   leftValue: value,
@@ -157,35 +160,35 @@ class _QuickConvertPageState extends State<QuickConvertPage> {
                       isMetric ? value / 0.45359237 : value * 0.45359237,
                   swapValues: isMetric),
               UnitCard(
-                  rightText: 'Hectogram',
-                  leftText: 'Ounce',
+                  rightText: currentLocale.quickConvert.gram,
+                  leftText: currentLocale.quickConvert.ounce,
                   leftSymbol: 'g',
                   rightSymbol: 'oz',
                   leftValue: value,
                   rightValue: isMetric ? value / 2.834952 : value * 2.834952,
                   swapValues: isMetric),
               const Divider(height: 40.0, indent: 20.0, endIndent: 20.0),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  'Volume',
-                  style: TextStyle(
+                  currentLocale.quickConvert.volume,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                   ),
                 ),
               ),
               UnitCard(
-                  rightText: 'Liter',
-                  leftText: 'US Gallon',
+                  rightText: currentLocale.quickConvert.liter,
+                  leftText: currentLocale.quickConvert.gallon,
                   leftSymbol: 'l',
                   rightSymbol: 'gal',
                   leftValue: value,
                   rightValue: isMetric ? value / 3.78541 : value * 3.78541,
                   swapValues: isMetric),
               UnitCard(
-                  rightText: 'Liter',
-                  leftText: 'Imperial Gallon',
+                  rightText: currentLocale.quickConvert.liter,
+                  leftText: currentLocale.quickConvert.imperialGallon,
                   leftSymbol: 'l',
                   rightSymbol: 'gal',
                   leftValue: value,
