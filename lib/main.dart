@@ -211,12 +211,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       context: context,
                       applicationName: currentLocale.appName,
                       applicationVersion: currentLocale.appVersion,
-                      applicationIcon: const FlutterLogo(),
-                      children: <Widget>[
-                        Text(currentLocale.appName),
-                        Text(
-                            '${currentLocale.main.version} ${currentLocale.appVersion}'),
-                      ]);
+                      applicationIcon: const Center(
+                        child: Image(
+                          image: AssetImage('assets/icons/icon.png'),
+                          height: 85.0,
+                        ),
+                      ),
+                      children: currentLocale.main.aboutContent.map((e) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(e),
+                        );
+                      }).toList());
                 });
               },
             ),

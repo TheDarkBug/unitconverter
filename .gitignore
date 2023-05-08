@@ -162,6 +162,6 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
 
-assets/langs
+assets/langs/*.txt
 android/app/src/main/jniLibs
 *.so

@@ -4,11 +4,11 @@ class MainLocales {
   String numberToString = '';
   String settings = '';
   String about = '';
-  String version = '';
   String loadingCurrencies = '';
   String timedOut = '';
   String notConnected = '';
   String retryLater = '';
+  List<String> aboutContent = [];
 
   void load(String code) {
     switch (code) {
@@ -18,11 +18,11 @@ class MainLocales {
         numberToString = 'Number to String';
         settings = 'Settings';
         about = 'About';
-        version = 'Version';
         loadingCurrencies = 'Loading Currencies from ';
         timedOut = 'Connection Timed Out';
         notConnected = 'Not connected';
         retryLater = 'Please Retry Later';
+        aboutContent = ['Created by ', 'Powered by ', 'Currencies Powered by '];
         break;
       case 'it':
         freedomUnits = 'Unità della libertà';
@@ -30,11 +30,15 @@ class MainLocales {
         numberToString = 'Numero a parola';
         settings = 'Impostazioni';
         about = 'Info';
-        version = 'Versione';
         loadingCurrencies = 'Caricamento valute da ';
         timedOut = 'Connessione scaduta';
         notConnected = 'Connessione a internet assente';
         retryLater = 'Riprova più tardi';
+        aboutContent = [
+          'Creato da ',
+          'Reso possibile da ',
+          'Valute rese possibili da '
+        ];
         break;
       default:
         throw Exception('Locale code $code is not supported');

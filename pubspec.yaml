@@ -23,17 +23,45 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+flutter_launcher_icons: # flutter pub run flutter_launcher_icons
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icons/android_launcher_icon.png"
+  android: "launcher_icon"
+  min_sdk_android: 21
+  ios: true
+  remove_alpha_ios: true
+  android_legacy: true
+  generate_legacy_icon: true
+  web:
+    generate: true
+    image_path: "assets/icons/icon.png"
+    background_color: "#ffffff"
+    theme_color: "blue"
+  windows:
+    generate: true
+    image_path: "assets/icons/icon.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/icons/icon.png"
+  app_name: "Unit Converter"
+
+
 flutter:
   uses-material-design: true
   assets:
     - assets/langs/italian.txt
     - assets/langs/english.txt
+    - assets/icons/icon.svg
+    - assets/icons/icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
