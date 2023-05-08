@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    version="1.0"
-   width="512.000000pt"
-   height="512.000000pt"
-   viewBox="0 0 512.000000 512.000000"
-   preserveAspectRatio="xMidYMid meet"
+   width="512"
+   height="512"
+   viewBox="0 0 384 384"
+   preserveAspectRatio="xMidYMid"
    id="svg18"
    sodipodi:docname="icon.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
@@ -56,9 +56,9 @@
        xlink:href="#linearGradient1450"
        id="linearGradient1452"
        x1="136.45888"
-       y1="171.56489"
+       y1="171.5649"
        x2="238.1678"
-       y2="171.56489"
+       y2="171.5649"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(0.84386887,0,0,0.84386887,2.7946986,51.233237)" />
     <linearGradient
@@ -67,18 +67,18 @@
        id="linearGradient3729"
        gradientUnits="userSpaceOnUse"
        x1="136.45888"
-       y1="171.56489"
+       y1="171.5649"
        x2="238.1678"
-       y2="171.56489"
+       y2="171.5649"
        gradientTransform="matrix(0.84386887,0,0,0.84386887,193.06956,172.44988)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient12198"
        id="linearGradient12200"
-       x1="2269.7831"
-       y1="3244.4914"
-       x2="4029.9411"
-       y2="3244.4914"
+       x1="2269.7832"
+       y1="3244.4915"
+       x2="4029.9412"
+       y2="3244.4915"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-1138.6936,-1011.1714)" />
     <linearGradient
@@ -86,9 +86,9 @@
        xlink:href="#linearGradient13875"
        id="linearGradient13877"
        x1="1131.0895"
-       y1="2233.32"
-       x2="2891.2475"
-       y2="2233.32"
+       y1="2233.3201"
+       x2="2891.2476"
+       y2="2233.3201"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
@@ -96,9 +96,9 @@
        id="linearGradient17029"
        gradientUnits="userSpaceOnUse"
        x1="1131.0895"
-       y1="2233.32"
-       x2="2891.2475"
-       y2="2233.32" />
+       y1="2233.3201"
+       x2="2891.2476"
+       y2="2233.3201" />
   </defs>
   <sodipodi:namedview
      id="namedview20"
@@ -112,8 +112,8 @@
      inkscape:document-units="pt"
      showgrid="false"
      inkscape:zoom="1.1953572"
-     inkscape:cx="273.14011"
-     inkscape:cy="349.68627"
+     inkscape:cx="132.59635"
+     inkscape:cy="350.52284"
      inkscape:window-width="1920"
      inkscape:window-height="1035"
      inkscape:window-x="0"
@@ -125,16 +125,16 @@
 Created by potrace 1.16, written by Peter Selinger 2001-2019
 </metadata>
   <rect
-     style="fill:#ffffff;fill-rule:evenodd;stroke-width:0.75;fill-opacity:1"
+     style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.5625"
      id="rect4570"
-     width="512"
-     height="512"
+     width="384"
+     height="384"
      x="0"
      y="0"
-     ry="154.86574" />
+     ry="116.14931" />
   <g
      id="g17027"
-     transform="matrix(1.3834878,0,0,1.3834878,-98.172866,-97.992657)">
+     transform="matrix(1.0376159,0,0,1.0376159,-73.62965,-73.494493)">
     <g
        transform="matrix(0.08438689,0,0,-0.08438689,118.84302,392.12367)"
        fill="#000000"
