@@ -30,6 +30,7 @@ class MainLocales {
           'Valute ottenute da ',
           'Codice Distribuito su ',
           '© 2023',
+          'Politica sulla Privacy'
         ];
         break;
       case 'en':
@@ -49,6 +50,7 @@ class MainLocales {
           'Currencies Powered by ',
           'Code Distributed on ',
           '© 2023',
+          'Privacy Policy'
         ];
         break;
     }

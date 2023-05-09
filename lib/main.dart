@@ -302,6 +302,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
+                      const SizedBox(width: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InkWell(
+                            child: Text(
+                              currentLocale.main.aboutContent[5],
+                              style: const TextStyle(
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.blue),
+                            ),
+                            onTap: () => launchUrl(Uri.parse(
+                                "https://thedarkbug.github.io/privacy-policy/unitconverter.html")),
+                          ),
+                        ],
+                      ),
                     ],
                   );
                 });
