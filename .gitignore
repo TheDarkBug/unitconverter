@@ -165,3 +165,4 @@ app.*.symbols
 assets/langs/*.txt
 android/app/src/main/jniLibs
 *.so
+*.jks
