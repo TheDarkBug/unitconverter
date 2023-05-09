@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 try {
                   await http.get(Uri.parse("https://cdn.jsdelivr.net")).timeout(
-                    const Duration(seconds: 5),
+                    const Duration(seconds: 10),
                     onTimeout: () {
                       throw TimeoutException(currentLocale.main.timedOut);
                     },

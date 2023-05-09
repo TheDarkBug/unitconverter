@@ -54,10 +54,11 @@ class _UnitCardState extends State<UnitCard> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             (widget.swapValues
-                                    ? widget.leftValue
-                                        .toStringAsFixed(widget.places)
-                                    : widget.rightValue
-                                        .toStringAsFixed(widget.places)) +
+                                        ? widget.leftValue
+                                            .toStringAsFixed(widget.places)
+                                        : widget.rightValue
+                                            .toStringAsFixed(widget.places))
+                                    .replaceAll(RegExp(r"[\.0]0*$"), "") +
                                 widget.leftSymbol,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
@@ -85,10 +86,11 @@ class _UnitCardState extends State<UnitCard> {
                           alignment: Alignment.topRight,
                           child: Text(
                             (widget.swapValues
-                                    ? widget.rightValue
-                                        .toStringAsFixed(widget.places)
-                                    : widget.leftValue
-                                        .toStringAsFixed(widget.places)) +
+                                        ? widget.rightValue
+                                            .toStringAsFixed(widget.places)
+                                        : widget.leftValue
+                                            .toStringAsFixed(widget.places))
+                                    .replaceAll(RegExp(r"[\.0]0*$"), "") +
                                 widget.rightSymbol,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
