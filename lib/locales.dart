@@ -10,9 +10,13 @@ class MainLocales {
   String timedOut = '';
   String notConnected = '';
   String retryLater = '';
-  List<String> aboutContent = [];
+  String donate = '';
+  AboutLocales aboutContent = AboutLocales();
+  DonationLocales donationContent = DonationLocales();
 
   void load(String code) {
+    aboutContent.load(code);
+    donationContent.load(code);
     switch (code) {
       case 'it':
         freedomUnits = 'Unità della libertà';
@@ -24,14 +28,7 @@ class MainLocales {
         timedOut = 'Connessione scaduta';
         notConnected = 'Connessione a internet assente';
         retryLater = 'Riprova più tardi';
-        aboutContent = [
-          'Creato da ',
-          'Sviluppato Tramite ',
-          'Valute ottenute da ',
-          'Codice Distribuito su ',
-          '© 2023',
-          'Politica sulla Privacy'
-        ];
+        donate = 'Dona';
         break;
       case 'en':
       default:
@@ -44,14 +41,58 @@ class MainLocales {
         timedOut = 'Connection Timed Out';
         notConnected = 'Not connected';
         retryLater = 'Please Retry Later';
-        aboutContent = [
-          'Created by ',
-          'Powered by ',
-          'Currencies Powered by ',
-          'Code Distributed on ',
-          '© 2023',
-          'Privacy Policy'
-        ];
+        donate = 'Donate';
+        break;
+    }
+  }
+}
+
+class AboutLocales {
+  String createdBy = '';
+  String poweredBy = '';
+  String currenciesPoweredBy = '';
+  String codeDistributedOn = '';
+  String copyright = '© 2023';
+  String privacyPolicy = '';
+
+  void load(String code) {
+    switch (code) {
+      case 'it':
+        createdBy = 'Creato da ';
+        poweredBy = 'Sviluppato tramite ';
+        currenciesPoweredBy = 'Valute Ottenute da ';
+        codeDistributedOn = 'Codice Distribuito su ';
+        privacyPolicy = 'Politica della privacy';
+        break;
+      case 'en':
+      default:
+        createdBy = 'Created by ';
+        poweredBy = 'Powered by ';
+        currenciesPoweredBy = 'Currencies Powered by ';
+        codeDistributedOn = 'Code Distributed on ';
+        privacyPolicy = 'Privacy Policy';
+        break;
+    }
+  }
+}
+
+class DonationLocales {
+  String question = '';
+  String description = '';
+  String close = '';
+
+  void load(String code) {
+    switch (code) {
+      case 'it':
+        question = 'Mi offriresti un caffè?';
+        description = '(Se ti è piaciuta l\'app ovviamente)';
+        close = 'Chiudi';
+        break;
+      case 'en':
+      default:
+        question = 'If you like this app';
+        description = 'Consider donating a coffee';
+        close = 'Close';
         break;
     }
   }

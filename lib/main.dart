@@ -10,6 +10,8 @@ import 'quickconvert.dart';
 import 'currencies.dart';
 import 'numstring.dart';
 import 'settings.dart';
+import 'about.dart';
+import 'donation.dart';
 
 void main() => runApp(const App());
 
@@ -213,113 +215,19 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  showAboutDialog(
+                  AppAboutDialog(context);
+                });
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.monetization_on),
+              title: Text(currentLocale.main.donate),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  showDialog(
                     context: context,
-                    applicationName: currentLocale.appName,
-                    applicationVersion: currentLocale.appVersion,
-                    applicationLegalese:
-                        "${currentLocale.main.aboutContent[4]} ${currentLocale.developer}",
-                    applicationIcon: const Center(
-                      child: Image(
-                        image: AssetImage('assets/icons/icon.png'),
-                        height: 85.0,
-                      ),
-                    ),
-                    children: <Widget>[
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(currentLocale.main.aboutContent[0]),
-                          InkWell(
-                            child: Text(
-                              currentLocale.developer,
-                              style: const TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.blue),
-                            ),
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'https://github.com/${currentLocale.developer}'));
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(currentLocale.main.aboutContent[1]),
-                          InkWell(
-                            child: const Text(
-                              "Flutter",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.blue),
-                            ),
-                            onTap: () {
-                              launchUrl(Uri.parse('https://flutter.dev'));
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(currentLocale.main.aboutContent[2]),
-                          InkWell(
-                            child: const Text(
-                              "JsDelivr",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.blue),
-                            ),
-                            onTap: () {
-                              launchUrl(Uri.parse('https://cdn.jsdelivr.net'));
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(currentLocale.main.aboutContent[3]),
-                          InkWell(
-                            child: const Text(
-                              "GitHub",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.blue),
-                            ),
-                            onTap: () => launchUrl(Uri.parse(
-                                'https://github.com/${currentLocale.developer}/unitconverter')),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          InkWell(
-                            child: Text(
-                              currentLocale.main.aboutContent[5],
-                              style: const TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.blue),
-                            ),
-                            onTap: () => launchUrl(Uri.parse(
-                                "https://thedarkbug.github.io/privacy-policy/unitconverter.html")),
-                          ),
-                        ],
-                      ),
-                    ],
+                    builder: (context) => const DonationDialog(),
                   );
                 });
               },
