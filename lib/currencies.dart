@@ -167,7 +167,7 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
                     leftSymbol: currencies[fromCurrencyIdx]['symbol'],
                     rightSymbol: currencies[index]['symbol'],
                     leftValue: value,
-                    rightValue: (value * currencies[fromCurrencyIdx]['value']) /
+                    rightValue: (value * currencies[fromCurrencyIdx]['value']) *
                         currencies[index]['value'],
                     swapValues: true,
                     places: 2,
