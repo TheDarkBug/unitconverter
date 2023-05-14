@@ -6,10 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'locales.dart';
-import 'quickconvert.dart';
-import 'advanced.dart';
+import 'quick_conversion.dart';
+import 'advanced_conversion.dart';
 import 'currencies.dart';
-import 'numstring.dart';
+import 'num_string.dart';
 import 'settings.dart';
 import 'about.dart';
 import 'donation.dart';
@@ -67,8 +67,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Widget _selectedPage = const QuickConvertPage();
-  String _selectedTitle = currentLocale.main.quickConvertion;
+  Widget _selectedPage = const QuickConversionPage();
+  String _selectedTitle = currentLocale.main.quickConversionion;
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.swap_horiz),
-              title: Text(currentLocale.main.quickConvertion),
+              title: Text(currentLocale.main.quickConversionion),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selectedTitle = currentLocale.main.quickConvertion;
-                  _selectedPage = const QuickConvertPage();
+                  _selectedTitle = currentLocale.main.quickConversionion;
+                  _selectedPage = const QuickConversionPage();
                 });
               },
             ),
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
                 setState(() {
                   _selectedTitle = currentLocale.main.advancedConvertion;
-                  _selectedPage = const AdvancedPage();
+                  _selectedPage = const AdvancedConversionPage();
                 });
               },
             ),

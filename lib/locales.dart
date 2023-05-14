@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class MainLocales {
-  String quickConvertion = '';
+  String quickConversionion = '';
   String advancedConvertion = '';
   String currencies = '';
   String numberToString = '';
@@ -20,7 +20,7 @@ class MainLocales {
     donationContent.load(code);
     switch (code) {
       case 'it':
-        quickConvertion = 'Conversione Rapida';
+        quickConversionion = 'Conversione Rapida';
         advancedConvertion = 'Conversione Avanzata';
         currencies = 'Valute';
         numberToString = 'Numero a parola';
@@ -34,7 +34,7 @@ class MainLocales {
         break;
       case 'en':
       default:
-        quickConvertion = 'Quick Convertion';
+        quickConversionion = 'Quick Convertion';
         advancedConvertion = 'Advanced Convertion';
         currencies = 'Currencies';
         numberToString = 'Number to String';
@@ -266,7 +266,7 @@ class Locales {
   String developer = 'TheDarkBug';
   MainLocales main = MainLocales();
   SettingsLocales settings = SettingsLocales();
-  QuickConvertLocales quickConvert = QuickConvertLocales();
+  QuickConvertLocales quickConversion = QuickConvertLocales();
   CurrenciesLocales currencies = CurrenciesLocales();
   NumStringLocales numString = NumStringLocales();
   void load(code) {
@@ -277,7 +277,7 @@ class Locales {
     }
     main.load(code);
     settings.load(code);
-    quickConvert.load(code);
+    quickConversion.load(code);
     currencies.load(code);
     numString.load(code);
     switch (code) {
