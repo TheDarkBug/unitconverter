@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 class MainLocales {
-  String freedomUnits = '';
+  String quickConvertion = '';
+  String advancedConvertion = '';
   String currencies = '';
   String numberToString = '';
   String settings = '';
@@ -19,7 +20,8 @@ class MainLocales {
     donationContent.load(code);
     switch (code) {
       case 'it':
-        freedomUnits = 'Unità della libertà';
+        quickConvertion = 'Conversione Rapida';
+        advancedConvertion = 'Conversione Avanzata';
         currencies = 'Valute';
         numberToString = 'Numero a parola';
         settings = 'Impostazioni';
@@ -32,7 +34,8 @@ class MainLocales {
         break;
       case 'en':
       default:
-        freedomUnits = 'Freedom Units';
+        quickConvertion = 'Quick Convertion';
+        advancedConvertion = 'Advanced Convertion';
         currencies = 'Currencies';
         numberToString = 'Number to String';
         settings = 'Settings';

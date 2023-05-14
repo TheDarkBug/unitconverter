@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'locales.dart';
 import 'quickconvert.dart';
+import 'advanced.dart';
 import 'currencies.dart';
 import 'numstring.dart';
 import 'settings.dart';
@@ -67,19 +68,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Widget _selectedPage = const QuickConvertPage();
-  String _selectedTitle = currentLocale.main.freedomUnits;
+  String _selectedTitle = currentLocale.main.quickConvertion;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(_selectedTitle)),
       body: _selectedPage,
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
+            DrawerHeader(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -87,23 +89,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               child: Text(
-                'Unit Converter',
-                style: TextStyle(color: Colors.white, fontSize: 30.0),
+                currentLocale.appName,
+                style: const TextStyle(color: Colors.white, fontSize: 30.0),
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.home),
-              title: Text(currentLocale.main.freedomUnits),
+              leading: const Icon(Icons.swap_horiz),
+              title: Text(currentLocale.main.quickConvertion),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  _selectedTitle = currentLocale.main.freedomUnits;
+                  _selectedTitle = currentLocale.main.quickConvertion;
                   _selectedPage = const QuickConvertPage();
                 });
               },
             ),
             ListTile(
-              leading: const Icon(Icons.money),
+              leading: const Icon(Icons.flip_camera_android),
+              title: Text(currentLocale.main.advancedConvertion),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selectedTitle = currentLocale.main.advancedConvertion;
+                  _selectedPage = const AdvancedPage();
+                });
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.currency_exchange),
               title: Text(currentLocale.main.currencies),
               onTap: () async {
                 Navigator.pop(context);
