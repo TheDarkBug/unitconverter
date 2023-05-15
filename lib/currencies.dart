@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 import 'locales.dart';
 import 'unit.dart';
 
 class CurrenciesPage extends StatefulWidget {
-  const CurrenciesPage({super.key});
+  CurrenciesPage({super.key, required this.value});
+  double value;
+
   @override
   State<CurrenciesPage> createState() => _CurrenciesPageState();
 }
 
 class _CurrenciesPageState extends State<CurrenciesPage> {
-  double value = 0.0;
+  bool isExpanded = true;
+  DateTime timestamp = DateTime.now();
   List<Map> currencies = [
     {
       'name': '${currentLocale.currencies.dollar} (USD)',
@@ -72,12 +76,49 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
   final TextEditingController controller = TextEditingController();
 
   Future<void> loadCurrencies() async {
+    try {
+      await http.get(Uri.parse("https://cdn.jsdelivr.net")).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          throw TimeoutException(currentLocale.main.timedOut);
+        },
+      );
+    } catch (e) {
+      Navigator.pop(context);
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(currentLocale.main.notConnected,
+                textAlign: TextAlign.center),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(currentLocale.main.retryLater),
+                const SizedBox(height: 20.0),
+                Text("$e"),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
     for (int i = 0; i < currencies.length; i++) {
-      getCurrencyConversion(currencies[0]['code'], currencies[i]['code'])
-          .then((value) {
-        setState(() {
-          currencies[i]['value'] = value;
-        });
+      final value = await getCurrencyConversion(
+          currencies[0]['code'], currencies[i]['code']);
+      setState(() {
+        currencies[i]['value'] = value;
       });
     }
   }
@@ -85,9 +126,7 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
   @override
   void initState() {
     super.initState();
-    loadCurrencies().then((value) {
-      Navigator.pop(context);
-    });
+    loadCurrencies();
   }
 
   Future<double> getCurrencyConversion(String from, String to) async {
@@ -102,79 +141,36 @@ class _CurrenciesPageState extends State<CurrenciesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextField(
-                  controller: controller,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: currencies[fromCurrencyIdx]['name'],
-                    hintText: 'e.g. 6.9',
-                    suffixIcon: controller.text.isNotEmpty
-                        ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              setState(() {
-                                controller.clear();
-                                value = 0.0;
-                              });
-                            })
-                        : null,
-                    border: const OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      this.value = value.isNotEmpty ? double.parse(value) : 0.0;
-                    });
-                  },
-                ),
+    return ExpansionPanelList(
+      expansionCallback: (int panelIndex, bool isExpanded) {
+        setState(() {
+          this.isExpanded = !isExpanded;
+        });
+      },
+      children: [
+        ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return ListTile(
+              title: Center(child: Text(currentLocale.main.currencies)),
+            );
+          },
+          body: Column(children: [
+            for (int i = 0; i < currencies.length; i++)
+              UnitCard(
+                leftText: currencies[i]['name'],
+                rightText: currencies[fromCurrencyIdx]['name'],
+                leftSymbol: currencies[fromCurrencyIdx]['symbol'],
+                rightSymbol: currencies[i]['symbol'],
+                leftValue: widget.value,
+                rightValue:
+                    (widget.value * currencies[fromCurrencyIdx]['value']) *
+                        currencies[i]['value'],
+                swapValues: true,
+                places: 2,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: DropdownButton<String>(
-                value: currencies[fromCurrencyIdx]['code'],
-                elevation: currencies.length,
-                onChanged: (String? value) {
-                  setState(() {
-                    fromCurrencyIdx =
-                        currencies.indexWhere((e) => e['code'] == value);
-                  });
-                },
-                items: currencies.map((currency) {
-                  return DropdownMenuItem<String>(
-                    value: currency['code'],
-                    child: Text(currency['name']),
-                  );
-                }).toList(),
-              ),
-            ),
-          ],
-        ),
-        Expanded(
-          child: ListView.builder(
-              itemCount: currencies.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Center(
-                  child: UnitCard(
-                    leftText: currencies[index]['name'],
-                    rightText: currencies[fromCurrencyIdx]['name'],
-                    leftSymbol: currencies[fromCurrencyIdx]['symbol'],
-                    rightSymbol: currencies[index]['symbol'],
-                    leftValue: value,
-                    rightValue: (value * currencies[fromCurrencyIdx]['value']) *
-                        currencies[index]['value'],
-                    swapValues: true,
-                    places: 2,
-                  ),
-                );
-              }),
-        ),
+          ]),
+          isExpanded: isExpanded,
+        )
       ],
     );
   }

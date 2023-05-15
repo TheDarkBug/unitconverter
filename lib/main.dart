@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/gestures.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'locales.dart';
 import 'quick_conversion.dart';
 import 'advanced_conversion.dart';
@@ -112,91 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   _selectedTitle = currentLocale.main.advancedConvertion;
                   _selectedPage = const AdvancedConversionPage();
-                });
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.currency_exchange),
-              title: Text(currentLocale.main.currencies),
-              onTap: () async {
-                Navigator.pop(context);
-
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const SizedBox(height: 20),
-                            const CircularProgressIndicator(),
-                            const SizedBox(height: 20),
-                            Text.rich(
-                              TextSpan(
-                                text: currentLocale.main.loadingCurrencies,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'JsDelivr',
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        launchUrl(Uri.parse(
-                                            'https://cdn.jsdelivr.net'));
-                                      },
-                                  ),
-                                  const TextSpan(text: '...'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-
-                try {
-                  await http.get(Uri.parse("https://cdn.jsdelivr.net")).timeout(
-                    const Duration(seconds: 10),
-                    onTimeout: () {
-                      throw TimeoutException(currentLocale.main.timedOut);
-                    },
-                  );
-                } catch (e) {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(currentLocale.main.notConnected,
-                            textAlign: TextAlign.center),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(currentLocale.main.retryLater),
-                            const SizedBox(height: 20.0),
-                            Text("$e"),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Ok'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                  return;
-                }
-                setState(() {
-                  _selectedTitle = currentLocale.main.currencies;
-                  _selectedPage = const CurrenciesPage();
                 });
               },
             ),
