@@ -211,7 +211,7 @@ class Locales {
   ];
   List id = ['', ''];
   String appName = 'Unit Converter';
-  String appVersion = '1.0.0';
+  String appVersion = '1.0.1';
   String developer = 'TheDarkBug';
   MainLocales main = MainLocales();
   SettingsLocales settings = SettingsLocales();
