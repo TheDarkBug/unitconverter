@@ -244,6 +244,88 @@ class _QuickConversionPageState extends State<QuickConversionPage> {
       Section(
         title: currentLocale.main.currencies,
         children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => Material(
+                        type: MaterialType.transparency,
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: TweenAnimationBuilder<double>(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            tween: Tween<double>(
+                              begin: 0.8,
+                              end: 0.0,
+                            ),
+                            builder: (BuildContext context, double value,
+                                Widget? child) {
+                              return FractionalTranslation(
+                                translation: Offset(0.0, value),
+                                child: DraggableScrollableSheet(
+                                  initialChildSize: 0.2,
+                                  minChildSize: 0.2,
+                                  maxChildSize: 0.08 * currencies.length,
+                                  builder: (context, scrollController) =>
+                                      Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                    child: ListView.builder(
+                                      controller: scrollController,
+                                      itemCount: currencies.length,
+                                      itemBuilder: (context, index) => ListTile(
+                                        onTap: () => setState(() {
+                                          fromCurrencyIdx = index;
+                                          Navigator.pop(context);
+                                        }),
+                                        title: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: fromCurrencyIdx == index
+                                                  ? Colors.green
+                                                  : Colors.transparent),
+                                          child: Text(
+                                            currencies[index]['name'],
+                                            style: TextStyle(
+                                              color: fromCurrencyIdx == index
+                                                  ? Theme.of(context)
+                                                      .primaryColor
+                                                  : Colors.white,
+                                              fontWeight:
+                                                  fromCurrencyIdx == index
+                                                      ? FontWeight.bold
+                                                      : FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+                  });
+                },
+                child: Text(currentLocale.quickConversion.chooseFromCurrency),
+              ),
+            ),
+          ),
           for (int i = 0; i < currencies.length; i++)
             UnitCard(
               leftText: currencies[i]['name'],
@@ -259,77 +341,83 @@ class _QuickConversionPageState extends State<QuickConversionPage> {
         ],
       )
     ];
-    return Column(
-      children: <Widget>[
-        Row(
+    return Stack(
+      children: [
+        Column(
           children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextField(
-                  controller: controller,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: isMetric
-                        ? currentLocale.quickConversion.metric
-                        : currentLocale.quickConversion.imperial,
-                    hintText: 'e.g. 6.9',
-                    suffixIcon: controller.text.isNotEmpty
-                        ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              setState(() {
-                                controller.clear();
-                                value = 0.0;
-                              });
-                            })
-                        : null,
-                    border: const OutlineInputBorder(),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      controller: controller,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: isMetric
+                            ? currentLocale.quickConversion.metric
+                            : currentLocale.quickConversion.imperial,
+                        hintText: 'e.g. 6.9',
+                        suffixIcon: controller.text.isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  setState(() {
+                                    controller.clear();
+                                    value = 0.0;
+                                  });
+                                })
+                            : null,
+                        border: const OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          this.value =
+                              value.isNotEmpty ? double.parse(value) : 0.0;
+                        });
+                      },
+                    ),
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      this.value = value.isNotEmpty ? double.parse(value) : 0.0;
-                    });
-                  },
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Switch(
+                      value: !isMetric,
+                      onChanged: (value) {
+                        setState(() {
+                          isMetric = !value;
+                        });
+                      }),
+                )
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  for (int index = 0; index < sections.length; index++)
+                    ExpansionPanelList(
+                      expansionCallback: (int panelIndex, bool isExpanded) {
+                        setState(() {
+                          expanded[index] = !isExpanded;
+                        });
+                      },
+                      children: [
+                        ExpansionPanel(
+                          headerBuilder:
+                              (BuildContext context, bool isExpanded) {
+                            return ListTile(
+                              title: Center(child: Text(sections[index].title)),
+                            );
+                          },
+                          body: sections[index],
+                          isExpanded: expanded[index],
+                        )
+                      ],
+                    ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: Switch(
-                  value: !isMetric,
-                  onChanged: (value) {
-                    setState(() {
-                      isMetric = !value;
-                    });
-                  }),
-            )
           ],
-        ),
-        Expanded(
-          child: ListView(
-            children: [
-              for (int index = 0; index < sections.length; index++)
-                ExpansionPanelList(
-                  expansionCallback: (int panelIndex, bool isExpanded) {
-                    setState(() {
-                      expanded[index] = !isExpanded;
-                    });
-                  },
-                  children: [
-                    ExpansionPanel(
-                      headerBuilder: (BuildContext context, bool isExpanded) {
-                        return ListTile(
-                          title: Center(child: Text(sections[index].title)),
-                        );
-                      },
-                      body: sections[index],
-                      isExpanded: expanded[index],
-                    )
-                  ],
-                ),
-            ],
-          ),
         ),
       ],
     );

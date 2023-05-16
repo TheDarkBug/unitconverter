@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'locales.dart';
 import 'quick_conversion.dart';
 import 'advanced_conversion.dart';
-import 'currencies.dart';
 import 'num_string.dart';
 import 'settings.dart';
 import 'about.dart';
@@ -100,17 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.flip_camera_android),
-              title: Text(currentLocale.main.advancedConvertion),
-              onTap: () {
-                Navigator.pop(context);
-                setState(() {
-                  _selectedTitle = currentLocale.main.advancedConvertion;
-                  _selectedPage = const AdvancedConversionPage();
-                });
-              },
-            ),
+            // ListTile(
+            //   leading: const Icon(Icons.flip_camera_android),
+            //   title: Text(currentLocale.main.advancedConvertion),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     setState(() {
+            //       _selectedTitle = currentLocale.main.advancedConvertion;
+            //       _selectedPage = const AdvancedConversionPage();
+            //     });
+            //   },
+            // ),
             ListTile(
               leading: const Icon(Icons.numbers),
               title: Text(currentLocale.main.numberToString),

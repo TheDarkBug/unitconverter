@@ -133,6 +133,8 @@ class QuickConvertLocales {
   String yen = 'Yen';
   String yuan = 'CN Yuan';
 
+  String chooseFromCurrency = 'Choose Currency to convert';
+
   void load(String code) {
     switch (code) {
       case 'it':
@@ -171,6 +173,8 @@ class QuickConvertLocales {
         gbPound = 'Sterline';
         newZealandDollar = 'NZ $dollar';
         swissFranc = 'Franchi SW';
+
+        chooseFromCurrency = 'Scegli la valuta da convertire';
         break;
       case 'en':
       default:
