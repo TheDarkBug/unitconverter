@@ -1,17 +1,13 @@
 import 'dart:ui';
 
 class MainLocales {
-  String quickConversionion = '';
-  String advancedConvertion = '';
-  String currencies = '';
-  String numberToString = '';
-  String settings = '';
-  String about = '';
-  String loadingCurrencies = '';
-  String timedOut = '';
-  String notConnected = '';
-  String retryLater = '';
-  String donate = '';
+  String quickConversionion = 'Quick Convertion';
+  String advancedConvertion = 'Advanced Convertion';
+  String currencies = 'Currencies';
+  String numberToString = 'Number to String';
+  String settings = 'Settings';
+  String about = 'About';
+  String donate = 'Donate';
   AboutLocales aboutContent = AboutLocales();
   DonationLocales donationContent = DonationLocales();
 
@@ -26,37 +22,22 @@ class MainLocales {
         numberToString = 'Numero a parola';
         settings = 'Impostazioni';
         about = 'Info';
-        loadingCurrencies = 'Caricamento valute da ';
-        timedOut = 'Connessione scaduta';
-        notConnected = 'Connessione a internet assente';
-        retryLater = 'Riprova più tardi';
         donate = 'Dona';
         break;
       case 'en':
       default:
-        quickConversionion = 'Quick Convertion';
-        advancedConvertion = 'Advanced Convertion';
-        currencies = 'Currencies';
-        numberToString = 'Number to String';
-        settings = 'Settings';
-        about = 'About';
-        loadingCurrencies = 'Loading Currencies from ';
-        timedOut = 'Connection Timed Out';
-        notConnected = 'Not connected';
-        retryLater = 'Please Retry Later';
-        donate = 'Donate';
         break;
     }
   }
 }
 
 class AboutLocales {
-  String createdBy = '';
-  String poweredBy = '';
-  String currenciesPoweredBy = '';
-  String codeDistributedOn = '';
+  String createdBy = 'Created by ';
+  String poweredBy = 'Powered by ';
+  String currenciesPoweredBy = 'Currencies Powered by ';
+  String codeDistributedOn = 'Code Distributed on ';
   String copyright = '© 2023';
-  String privacyPolicy = '';
+  String privacyPolicy = 'Privacy Policy';
 
   void load(String code) {
     switch (code) {
@@ -69,20 +50,15 @@ class AboutLocales {
         break;
       case 'en':
       default:
-        createdBy = 'Created by ';
-        poweredBy = 'Powered by ';
-        currenciesPoweredBy = 'Currencies Powered by ';
-        codeDistributedOn = 'Code Distributed on ';
-        privacyPolicy = 'Privacy Policy';
         break;
     }
   }
 }
 
 class DonationLocales {
-  String question = '';
-  String description = '';
-  String close = '';
+  String question = 'If you like this app';
+  String description = 'Consider donating a coffee';
+  String close = 'Close';
 
   void load(String code) {
     switch (code) {
@@ -93,18 +69,15 @@ class DonationLocales {
         break;
       case 'en':
       default:
-        question = 'If you like this app';
-        description = 'Consider donating a coffee';
-        close = 'Close';
         break;
     }
   }
 }
 
 class SettingsLocales {
-  String darkMode = '';
-  String systemTheme = '';
-  String language = '';
+  String darkMode = 'Dark Mode';
+  String systemTheme = 'System Theme';
+  String language = 'Language';
 
   void load(String code) {
     switch (code) {
@@ -115,42 +88,55 @@ class SettingsLocales {
         break;
       case 'en':
       default:
-        darkMode = 'Dark Mode';
-        systemTheme = 'System Theme';
-        language = 'Language';
         break;
     }
   }
 }
 
 class QuickConvertLocales {
-  String metric = '';
-  String imperial = '';
-  String length = '';
-  String kilometer = '';
-  String mile = '';
-  String meter = '';
-  String yard = '';
-  String feet = '';
-  String centimeter = '';
-  String inch = '';
-  String temperature = '';
-  String celsius = '';
-  String fahrenheit = '';
-  String kelvin = '';
-  String weight = '';
-  String kilogram = '';
-  String pound = '';
-  String gram = '';
-  String ounce = '';
-  String volume = '';
-  String liter = '';
-  String gallon = '';
-  String imperialGallon = '';
+  // measure units
+  String metric = 'Metric';
+  String imperial = 'Imperial';
+  String length = 'Length';
+  String kilometer = 'Kilometer';
+  String mile = 'Mile';
+  String meter = 'Meter';
+  String yard = 'Yard';
+  String feet = 'Feet';
+  String centimeter = 'Centimeter';
+  String inch = 'Inch';
+  String temperature = 'Temperature';
+  String celsius = 'Celsius';
+  String fahrenheit = 'Fahrenheit';
+  String kelvin = 'Kelvin';
+  String weight = 'Weight';
+  String kilogram = 'Kilogram';
+  String pound = 'Pound';
+  String gram = 'Gram';
+  String ounce = 'Ounce';
+  String volume = 'Volume';
+  String liter = 'Liter';
+  String gallon = 'Gallon';
+  String imperialGallon = 'Imperial Gallon';
+  // connection
+  String timedOut = 'Connection timed out';
+  String notConnected = 'No internet connection';
+  String noCurrencies = 'Currencies conversion will not be available';
+  // currencies
+  String dollar = 'Dollar';
+  String euro = 'Euro';
+  String canadianDollar = 'CA Dollar';
+  String australianDollar = 'AU Dollar';
+  String gbPound = 'Pound';
+  String newZealandDollar = 'NZ Dollar';
+  String swissFranc = 'SW Franc';
+  String yen = 'Yen';
+  String yuan = 'CN Yuan';
 
   void load(String code) {
     switch (code) {
       case 'it':
+        // measure units
         metric = 'Sistema Metrico';
         imperial = 'Sistema Imperiale';
         length = 'Lunghezza';
@@ -174,54 +160,15 @@ class QuickConvertLocales {
         liter = 'Litri';
         gallon = 'Galloni';
         imperialGallon = 'Galloni Imperiali';
-        break;
-      case 'en':
-      default:
-        metric = 'Metric';
-        imperial = 'Imperial';
-        length = 'Length';
-        kilometer = 'Kilometer';
-        mile = 'Mile';
-        meter = 'Meter';
-        yard = 'Yard';
-        feet = 'Feet';
-        centimeter = 'Centimeter';
-        inch = 'Inch';
-        temperature = 'Temperature';
-        celsius = 'Celsius';
-        fahrenheit = 'Fahrenheit';
-        kelvin = 'Kelvin';
-        weight = 'Weight';
-        kilogram = 'Kilogram';
-        pound = 'Pound';
-        gram = 'Gram';
-        ounce = 'Ounce';
-        volume = 'Volume';
-        liter = 'Liter';
-        gallon = 'Gallon';
-        imperialGallon = 'Imperial Gallon';
-        break;
-    }
-  }
-}
-
-class CurrenciesLocales {
-  String dollar = 'Dollar';
-  String euro = 'Euro';
-  String canadianDollar = 'CA Dollar';
-  String australianDollar = 'AU Dollar';
-  String pound = 'Pound';
-  String newZealandDollar = 'NZ Dollar';
-  String swissFranc = 'SW Franc';
-  String yen = 'Yen';
-  String yuan = 'CN Yuan';
-  void load(String code) {
-    switch (code) {
-      case 'it':
+        // connection
+        timedOut = 'Connessione scaduta';
+        notConnected = 'Connessione a internet assente';
+        noCurrencies = 'La conversione delle valute non sarà disponibile';
+        // currencies
         dollar = 'Dollari';
         canadianDollar = 'CA $dollar';
         australianDollar = 'AU $dollar';
-        pound = 'Sterline';
+        gbPound = 'Sterline';
         newZealandDollar = 'NZ $dollar';
         swissFranc = 'Franchi SW';
         break;
@@ -233,8 +180,8 @@ class CurrenciesLocales {
 }
 
 class NumStringLocales {
-  String langFilePath = '';
-  String copied = '';
+  String langFilePath = 'assets/langs/english.txt';
+  String copied = 'Copied to Clipboard';
 
   void load(String code) {
     switch (code) {
@@ -244,8 +191,6 @@ class NumStringLocales {
         break;
       case 'en':
       default:
-        langFilePath = 'assets/langs/english.txt';
-        copied = 'Copied to Clipboard';
         break;
     }
   }
@@ -256,9 +201,9 @@ class Locales {
     load(code);
   }
   List<Map> langs = [
-    {'name': '', 'code': 'en'},
-    {'name': '', 'code': 'it'},
-    {'name': '', 'code': 'sys'},
+    {'name': 'English', 'code': 'en'},
+    {'name': 'Italian', 'code': 'it'},
+    {'name': 'System', 'code': 'sys'},
   ];
   List id = ['', ''];
   String appName = 'Unit Converter';
@@ -267,7 +212,6 @@ class Locales {
   MainLocales main = MainLocales();
   SettingsLocales settings = SettingsLocales();
   QuickConvertLocales quickConversion = QuickConvertLocales();
-  CurrenciesLocales currencies = CurrenciesLocales();
   NumStringLocales numString = NumStringLocales();
   void load(code) {
     bool isSystemLocale = false;
@@ -278,7 +222,6 @@ class Locales {
     main.load(code);
     settings.load(code);
     quickConversion.load(code);
-    currencies.load(code);
     numString.load(code);
     switch (code) {
       case 'it':
@@ -289,9 +232,6 @@ class Locales {
         break;
       case 'en':
       default:
-        langs[0]['name'] = 'English';
-        langs[1]['name'] = 'Italian';
-        langs[2]['name'] = 'System';
         id = ['en', 'English'];
         break;
     }

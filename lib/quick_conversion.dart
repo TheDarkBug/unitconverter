@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'currencies.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 import 'locales.dart';
 import 'unit.dart';
 
@@ -14,6 +14,7 @@ class QuickConversionPage extends StatefulWidget {
 class _QuickConversionPageState extends State<QuickConversionPage> {
   double value = 0.0;
   bool isMetric = true;
+  int fromCurrencyIdx = 0;
   final TextEditingController controller = TextEditingController();
   late Section currenciesSection;
   List<Section> sections = [];
@@ -21,11 +22,118 @@ class _QuickConversionPageState extends State<QuickConversionPage> {
   List<UnitCard> tempItems = [];
   List<UnitCard> weightItems = [];
   List<UnitCard> volumeItems = [];
-  List<bool> expanded = [true, true, true, true];
+  List<bool> expanded = [true, true, true, true, true];
+  List<Map> currencies = [
+    {
+      'name': '${currentLocale.quickConversion.dollar} (USD)',
+      'symbol': '\$',
+      'code': 'usd',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.euro} (EUR)',
+      'symbol': '€',
+      'code': 'eur',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.canadianDollar} (CAD)',
+      'symbol': 'CA\$',
+      'code': 'cad',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.australianDollar} (AUD)',
+      'symbol': 'AU\$',
+      'code': 'aud',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.pound} (GBP)',
+      'symbol': '£',
+      'code': 'gbp',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.newZealandDollar} (NZD)',
+      'symbol': 'NZ\$',
+      'code': 'nzd',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.swissFranc} (CHF)',
+      'symbol': 'CHF',
+      'code': 'chf',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.yen} (JPY)',
+      'symbol': '¥',
+      'code': 'jpy',
+      'value': -1.0
+    },
+    {
+      'name': '${currentLocale.quickConversion.yuan} (CNY)',
+      'symbol': '¥',
+      'code': 'cny',
+      'value': -1.0
+    }
+  ];
+
+  Future<void> loadCurrencies() async {
+    try {
+      await http.get(Uri.parse("https://cdn.jsdelivr.net")).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          throw TimeoutException(currentLocale.quickConversion.timedOut);
+        },
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(currentLocale.quickConversion.notConnected,
+                textAlign: TextAlign.center),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(currentLocale.quickConversion.noCurrencies),
+                const SizedBox(height: 20.0),
+                Text("$e"),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    for (int i = 0; i < currencies.length; i++) {
+      final response = await http.get(Uri.parse(
+          'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencies[0]['code']}/${currencies[i]['code']}.json'));
+      if (response.statusCode == 200) {
+        currencies[i]['value'] =
+            json.decode(response.body)[currencies[i]['code']].toDouble();
+      } else {
+        throw Exception('Failed to load currency price');
+      }
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    loadCurrencies();
   }
 
   @override
@@ -133,6 +241,23 @@ class _QuickConversionPageState extends State<QuickConversionPage> {
               swapValues: isMetric),
         ],
       ),
+      Section(
+        title: currentLocale.main.currencies,
+        children: [
+          for (int i = 0; i < currencies.length; i++)
+            UnitCard(
+              leftText: currencies[i]['name'],
+              rightText: currencies[fromCurrencyIdx]['name'],
+              leftSymbol: currencies[fromCurrencyIdx]['symbol'],
+              rightSymbol: currencies[i]['symbol'],
+              leftValue: value,
+              rightValue: (value * currencies[fromCurrencyIdx]['value']) *
+                  currencies[i]['value'],
+              swapValues: true,
+              places: 2,
+            ),
+        ],
+      )
     ];
     return Column(
       children: <Widget>[
@@ -172,10 +297,10 @@ class _QuickConversionPageState extends State<QuickConversionPage> {
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
               child: Switch(
-                  value: isMetric,
+                  value: !isMetric,
                   onChanged: (value) {
                     setState(() {
-                      isMetric = value;
+                      isMetric = !value;
                     });
                   }),
             )
@@ -203,7 +328,6 @@ class _QuickConversionPageState extends State<QuickConversionPage> {
                     )
                   ],
                 ),
-              CurrenciesPage(value: value),
             ],
           ),
         ),
